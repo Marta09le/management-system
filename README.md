@@ -20,7 +20,7 @@ Follow these steps to install and run the project:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/BuildDear/Management_System.git
+git clone https://github.com/Marta09le/management-system.git
 ```
 
 ### Enter the Project Directory
