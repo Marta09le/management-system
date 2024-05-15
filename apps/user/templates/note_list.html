@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="lists-centered-container">
+
+        <h2>Примітки</h2>
+        {% for message in messages %}
+            <p class="text-danger">{{ message }}</p>
+        {% endfor %}
+
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ім'я</th>
+                <th>Опис</th>
+                <th>Створено</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in object_list %}
+                <tr>
+                    <td>{{ note.name }}</td>
+                    <td>{{ note.description }}</td>
+                    <td>{{ note.created }}</td>
+                    <td>
+                        <a href="{% url 'note-edit' note.id %}" class="btn btn-outline-info">Редагувати</a>
+                        <a href="{% url 'note-delete' note.id %}" class="btn btn-outline-danger">Видалити</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <div class="d-flex justify-content-between w-100 mt-3">
+            <button onclick="location.href='{% url 'group-list' %}'" class="btn btn-outline-dark">Назад</button>
+            <button onclick="location.href='{% url 'note-add' %}'" class="btn btn-outline-success">Додати коментар</button>
+        </div>
+    </div>
+
+{% endblock %}

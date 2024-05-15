@@ -1,0 +1,163 @@
+/*first page*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header, footer {
+    background-color: #0057a8;
+    color: #fff;
+    padding: 35px 0;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+header:hover, footer:hover {
+    background-color: #003f7c; /* Темний синій при наведенні */
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.start-button {
+    background-color: #0073e6; /* Синій */
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    padding: 20px 40px;
+    font-size: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.start-button:hover {
+    background-color: #0057a8; /* Темний синій при наведенні */
+    transform: scale(1.05); /* Збільшення при наведенні */
+}
+
+/*first page*/
+
+
+
+/*main page*/
+.main-buttons-container {
+    display: flex; /* використання flexbox */
+    flex-direction: row; /* розміщення дочірніх елементів у вертикальному напрямку */
+    justify-content: center; /* центрування дочірніх елементів по гор */
+    align-items: center; /* центрування дочірніх елементів по горизонталі */
+    height: 100vh; /* висота контейнера дорівнює висоті вікна переглядача */
+    position: relative;
+}
+
+
+.rounded-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 350px;
+    height: 300px;
+    text-align: center;
+    font-size: 20px;
+    padding: 100px 30px;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+    margin: 10px;
+}
+
+.rounded-button:hover {
+    background-color: #005bb5; /* Темний синій колір при наведенні */
+
+}
+
+.rounded-button:active {
+    background-color: #004494; /* Ще темніший синій */
+    transform: scale(1); /* Повертаємо розмір до початкового стану при натисканні */
+}
+
+
+
+/*main page*/
+
+/*lists*/
+.lists-centered-container {
+    text-align: center; /* центрування тексту */
+    max-width: 100%; /* обмеження максимальної ширини контейнера */
+    margin: 0 auto; /* автоматичний відступ зліва та справа для центрування блоку */
+    padding: 20px; /* додатковий відступ навколо змісту */
+    background-color: #f5f5f5; /* світло-сірий колір фону */
+    border-radius: 30px; /* закруглені кути */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* легка тінь */
+}
+
+.add-entity-centered-container {
+    text-align: center; /* центрування тексту */
+    max-width: 100%; /* обмеження максимальної ширини контейнера */
+    width: 400px;
+    margin: 0 auto; /* автоматичний відступ зліва та справа для центрування блоку */
+    padding: 20px; /* додатковий відступ навколо змісту */
+    background-color: #f5f5f5; /* світло-сірий колір фону */
+    border-radius: 30px; /* закруглені кути */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* легка тінь */
+}
+/*lists*/
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+
+
+.main-buttons-container-who {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        padding: 20px;
+}
+
+.choice-title {
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        text-align: center;
+}
+
+.rounded-button-who {
+        width: 200px;
+        height: 100px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007BFF;
+        color: #FFFFFF;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+}
+
+.rounded-button-who:hover {
+        background-color: #0056b3;
+}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-buttons-container-who">
+
+    <h2 class="choice-title">Хто ви?</h2>
+
+    {% if user.is_authenticated %}
+        <button onclick="location.href='{% url 'user-list' %}'" class="rounded-button-who">Користувач</button>
+    {% else %}
+         <button onclick="location.href='{% url 'user-register' %}'" class="rounded-button-who">Користувач</button>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <button onclick="location.href='{% url 'user-list' %}'" class="rounded-button-who">Менеджер</button>
+    {% else %}
+         <button onclick="location.href='{% url 'manager-register' %}'" class="rounded-button-who">Менеджер</button>
+    {% endif %}
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <main>
+        <h2>Ласкаво просимо до Managementio</h2>
+        <p>Готові почати? Натисніть на кнопку</p>
+        <button class="start-button" onclick="location.href='{% url 'choose-who' %}'">Почати</button>
+    </main>
+
+{% endblock %}

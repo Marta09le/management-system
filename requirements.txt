@@ -1,0 +1,46 @@
+# Web Frameworks and Extensions
+# --------------------------------
+# Django: High-level Python web framework for rapid development.
+Django==4.2.6
+
+# DRF: Toolkit for building Web APIs with Django.
+djangorestframework==3.14.0
+
+# drf-yasg: Generates real Swagger/OpenAPI 2.0 specifications from a Django Rest Framework API.
+drf-yasg==1.21.7
+
+# ASGI support for asynchronous web applications.
+asgiref==3.7.2
+
+# Database and Data Handling
+# ---------------------------
+# mysqlclient: MySQL database connector for Python.
+mysqlclient==2.2.0
+
+# sqlparse: Non-validating SQL parser for Python.
+sqlparse==0.4.4
+
+# Data and Time
+# --------------
+# pytz: Provides accurate time zone data from the IANA time zone database.
+pytz==2023.3.post1
+
+# tzdata: IANA time zone database package.
+tzdata==2023.3
+
+# Utilities and Helpers
+# ----------------------
+# inflection: String transformation library for pluralizing, singularizing, camelizing, etc.
+inflection==0.5.1
+
+# packaging: Core utilities for Python packages, including version handling and specifiers.
+packaging==23.2
+
+# python-decouple: Organizes settings for easy parameter changes without redeployment.
+python-decouple==3.8
+
+# PyYAML: YAML parser and emitter for Python.
+PyYAML==6.0.1
+
+# uritemplate: Library for dealing with URI Templates.
+uritemplate==4.1.1

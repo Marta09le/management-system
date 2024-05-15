@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="lists-centered-container">
+    <h3>Видалити підтвердження</h3>
+    {% if is_user %}
+        <p>Do you really want to delete the user with email {{ object.email }} ?</p>
+    {% else %}
+        <p>Do you really want to delete the group with name {{ object.name }} ?</p>
+    {% endif %}
+
+    <form method="post" action="{{ request.path }}">
+        {% csrf_token %}
+
+         {% if user.is_manager %}
+             <a href="{% url 'manager-list' %}" class="btn btn-outline-dark">Назад</a>
+         {% else %}
+             <a href="{% url 'user-list' %}" class="btn btn-outline-dark">Назад</a>
+         {% endif %}
+
+        <button type="submit" class="btn btn-danger">Видалити</button>
+    </form>
+</div>
+
+{% endblock %}

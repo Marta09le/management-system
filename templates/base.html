@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MartaWebsite</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+    <h1>Calendario</h1>
+
+    {% if user.is_authenticated %}
+        <div class="float-left mr-3">
+            {% if user.is_authenticated %}
+                <a href="{% url 'choose-list' %}" class="btn btn-outline-warning">Головна</a>
+                {% if user.is_manager %}
+                    <a href="{% url 'user-list' %}" class="btn btn-outline-warning">Список користувачів</a>
+                    <a href="{% url 'manager-list' %}" class="btn btn-outline-warning">Список менеджерів</a>
+                {% endif %}
+
+                <a href="{% url 'group-list' %}" class="btn btn-outline-warning">Події</a>
+            {% else %}
+                <h3>Вам слід увійти перед початком</h3>
+            {% endif %}
+        </div>
+
+        <div class="float-right mr-3">
+
+            {% if user.is_manager or not user.is_manager %}
+                <a href="{% url 'user-edit' user.id %}" class="btn btn-outline-info">Редагувати</a>
+                <a href="{% url 'user-delete' user.id %}" class="btn btn-outline-danger">Видалити</a>
+            {% endif %}
+
+            {% if user.is_manager %}
+                <h5>Менеджер</h5>
+            {% else %}
+                <h5>User</h5>
+            {% endif %}
+            {% endif %}
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="btn btn-secondary btn-sm">Вийти</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-secondary btn-sm">Увійти</a>
+            {% endif %}
+        </div>
+
+    </header>
+
+    {% block content %}{% endblock %}
+
+
+    <footer>
+        <p>&copy; 2024 - All rights possibly reserved</p>
+        <p>marta.leshchyshyn.pp.2022@lpnu.ua</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'from_post_to_delete.js' %}"></script>
+
+</body>
+</html>
