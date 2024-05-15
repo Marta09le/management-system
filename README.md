@@ -2,7 +2,7 @@
 
 ## Greetings
 
-Hi, I'm Markiian! I created a calendar management system ,which helps people to organise their time 
+Hi, I'm Marta! I created a calendar management system ,which helps people to organise their time 
 and create small notes inside some event.I hope that your next days will be 
 productive than previous days with Calendario🥰🥰🥰
 
