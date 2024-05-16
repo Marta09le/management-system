@@ -9,22 +9,22 @@ from apps.accounts.forms import UserRegisterForm, GroupAddForm
 from apps.accounts.models import UserModel, GroupModel, NoteModel
 
 
-# View for choosing between different lists (users or groups).
+# Вибір між різними списками (користувачі або групи).
 class ChooseListView(generic.TemplateView):
     template_name = 'choose_lists.html'
 
 
-# View for displaying a list of regular users.
+# Відображення списку звичайних користувачів.
 class UserListView(generic.ListView):
     model = UserModel
     template_name = 'users_list.html'
     context_object_name = 'users'
 
-    # Filter the queryset to only include non-manager users.
+    # Фільтрація вибірки для включення лише не-менеджерів.
     def get_queryset(self):
         return UserModel.objects.filter(is_manager=False)
 
-    # Add additional context to the template.
+    # Додавання додаткового контексту до шаблону.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'List of users'
@@ -38,17 +38,17 @@ class UserListView(generic.ListView):
         return super().dispatch(request, *args, **kwargs)
 
 
-# View for displaying a list of managers.
+# Відображення списку менеджерів.
 class ManagerListView(generic.ListView):
     model = UserModel
     template_name = 'users_list.html'
     context_object_name = 'users'
 
-    # Filter the queryset to only include manager users.
+    # Фільтрація вибірки для включення лише менеджерів.
     def get_queryset(self):
         return UserModel.objects.filter(is_manager=True)
 
-    # Add additional context to the template.
+    # Додавання додаткового контексту до шаблону.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'List of managers'
@@ -62,14 +62,14 @@ class ManagerListView(generic.ListView):
         return super().dispatch(request, *args, **kwargs)
 
 
-# View for updating a user's information.
+# Оновлення інформації користувача.
 class CustomUpdateView(generic.UpdateView):
     model = UserModel
     form_class = UserRegisterForm
     template_name = 'edit_user.html'
     success_url = reverse_lazy('user-list')
 
-    # Check permissions before allowing the user to edit.
+    # Перевірка дозволів перед дозволом редагування.
     def dispatch(self, request, *args, **kwargs):
         user_to_edit = get_object_or_404(UserModel, pk=kwargs['pk'])
         if not request.user.is_authenticated or (not request.user.is_manager and request.user != user_to_edit):
@@ -78,19 +78,19 @@ class CustomUpdateView(generic.UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-# View for deleting a user.
+# Видалення користувача.
 class CustomDeleteView(generic.DeleteView):
     model = UserModel
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('user-list')
 
-    # Add additional context to the template.
+    # Додавання додаткового контексту до шаблону.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_user'] = True
         return context
 
-    # Check permissions before allowing the user to delete.
+    # Перевірка дозволів перед дозволом видалення.
     def dispatch(self, request, *args, **kwargs):
         user_to_edit = get_object_or_404(UserModel, pk=kwargs['pk'])
         if not request.user.is_authenticated or (not request.user.is_manager and request.user != user_to_edit):
@@ -101,21 +101,21 @@ class CustomDeleteView(generic.DeleteView):
 
 #  ===========  REST URL METHOD  ===========
 
-# View for displaying a list of groups.
+# Відображення списку груп.
 class GroupListView(generic.ListView):
     model = GroupModel
     template_name = 'groups_list.html'
     context_object_name = 'groups'
 
 
-# View for creating a new group.
+# Створення нової групи.
 class GroupCreateView(generic.CreateView):
     model = GroupModel
     form_class = GroupAddForm
     template_name = "edit_event.html"
     success_url = reverse_lazy('group-list')
 
-    # Add additional context to the template.
+    # Додавання додаткового контексту до шаблону.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Create event'
@@ -123,14 +123,14 @@ class GroupCreateView(generic.CreateView):
         return context
 
 
-# View for updating a group's information.
+# Оновлення інформації групи.
 class GroupUpdateView(generic.UpdateView):
     model = GroupModel
     form_class = GroupAddForm
     template_name = 'edit_event.html'
     success_url = reverse_lazy('group-list')
 
-    # Add additional context to the template.
+    # Додавання додаткового контексту до шаблону.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Edit event'
@@ -138,7 +138,7 @@ class GroupUpdateView(generic.UpdateView):
         context['notes'] = NoteModel.objects.all()
         return context
 
-    # Check permissions before allowing the user to edit.
+    # Перевірка дозволів перед дозволом редагування.
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.error(request, "You don't have permission")
@@ -146,26 +146,26 @@ class GroupUpdateView(generic.UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-# View for deleting a group.
+# Видалення групи.
 class GroupDeleteView(generic.DeleteView):
     model = GroupModel
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('group-list')
 
-    # Add additional context to the template.
+    # Додавання додаткового контексту до шаблону.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_user'] = False
         return context
 
-    # Check permissions and group membership before allowing deletion.
+    # Перевірка дозволів та членства в групі перед дозволом видалення.
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_manager:
             messages.error(request, "You don't have permission")
             return redirect('error')
         return super().dispatch(request, *args, **kwargs)
 
-    # Prevent deletion of groups with members.
+    # Запобігання видаленню груп із членами.
     def delete(self, request, *args, **kwargs):
         try:
             return super().delete(request, *args, **kwargs)
@@ -174,61 +174,10 @@ class GroupDeleteView(generic.DeleteView):
             return redirect('some_view')
 
 
-# # View for displaying an error message.
+# Відображення повідомлення про помилку.
 class ErrorView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'error.html', {})
 
-
-#   ===========  REST HTTP METHOD  ===========
-
-# class EventView(View):
-#     template_list = 'groups_list.html'
-#     template_edit = 'edit_event.html'
-#     template_delete = 'confirm_delete.html'
-#     success_url = reverse_lazy('user-list')
-#
-#     def get(self, request, *args, **kwargs):
-#         if 'id' in kwargs:
-#             group = get_object_or_404(GroupModel, pk=kwargs['id'])
-#             form = GroupAddForm(instance=group)
-#             return render(request, self.template_edit, {'form': form, 'group': group})
-#
-#         groups = GroupModel.objects.all()
-#         return render(request, self.template_list, {'groups': groups})
-#
-#     def post(self, request, *args, **kwargs):
-#         if 'id' in kwargs:
-#             group = get_object_or_404(GroupModel, pk=kwargs['id'])
-#             form = GroupAddForm(request.POST, instance=group)
-#         else:
-#             form = GroupAddForm(request.POST)
-#
-#         if form.is_valid():
-#             form.save()
-#             return redirect(self.success_url)
-#         return render(request, self.template_edit, {'form': form})
-#
-#     def delete(self, request, *args, **kwargs):
-#         group = get_object_or_404(GroupModel, pk=kwargs['id'])
-#         try:
-#             group.delete()
-#             return redirect(self.success_url)
-#         except ProtectedError:
-#             messages.error(request, "This group cannot be deleted because it is used by other objects.")
-#             return redirect('some_view')
-#
-#     def patch(self, request, *args, **kwargs):
-#         if 'id' in kwargs:
-#             group = get_object_or_404(GroupModel, pk=kwargs['id'])
-#             form = GroupAddForm(request.POST, instance=group)
-#         else:
-#             return JsonResponse({'error': 'Invalid request'}, status=400)
-#
-#         if form.is_valid():
-#             form.save()
-#             return JsonResponse({'message': 'Group updated successfully.'}, status=200)
-#
-#         return JsonResponse({'error': 'Invalid data'}, status=400)
 
 
