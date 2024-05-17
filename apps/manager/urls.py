@@ -21,8 +21,5 @@ urlpatterns = [
 
     path('', include('apps.accounts.urls')),
 
-    # ===========  URLS FOR REST HTTP METHOD  ===========
 
-    # path('event/', views.EventView.as_view(), name='event'),
-    # path('event/<int:pk>/', views.EventView.as_view(), name='event'),
 ]
