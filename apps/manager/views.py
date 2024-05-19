@@ -28,7 +28,7 @@ class UserListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'List of users'
-        context['button_label'] = 'Create user'
+        context['button_label'] = 'Додати користувача'
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -52,7 +52,7 @@ class ManagerListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'List of managers'
-        context['button_label'] = 'Create manager'
+        context['button_label'] = 'Додати менеджера'
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -118,8 +118,8 @@ class GroupCreateView(generic.CreateView):
     # Додавання додаткового контексту до шаблону.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Create event'
-        context['button_label'] = 'Create'
+        context['title'] = 'Створити подію'
+        context['button_label'] = 'Створити'
         return context
 
 
@@ -134,7 +134,7 @@ class GroupUpdateView(generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Edit event'
-        context['button_label'] = 'Save changes'
+        context['button_label'] = 'Зберегти зміни'
         context['notes'] = NoteModel.objects.all()
         return context
 
