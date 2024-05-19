@@ -4,27 +4,32 @@ from django.contrib.auth.models import PermissionsMixin, Group, Permission
 from django.db import models
 
 
+# Менеджер користувачів для налаштування користувачів в системі
 class UserManager(BaseUserManager):
-
+    # Приватний метод для створення користувача
     def _create_user(self, email, password, **extra_fields):
+        # Перевірка, чи вказана електронна адреса
         if not email:
             raise ValueError('Users must have an email address')
-
+        # Створення об'єкта користувача
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
+    # Метод для створення звичайного користувача
     def create_user(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_manager', False)
         return self._create_user(email, password, **extra_fields)
 
+    # Метод для створення менеджера
     def create_manager(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_manager', True)
         return self._create_user(email, password, **extra_fields)
 
+    # Метод для створення суперкористувача
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_manager', True)
@@ -36,10 +41,11 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True')
         return self._create_user(email, password, **extra_fields)
 
+    # Метод для отримання користувача за натуральним ключем (електронна пошта)
     def get_by_natural_key(self, email):
         return self.get(email=email)
 
-
+# Модель групи користувачів
 class GroupModel(models.Model):
     name = models.CharField(max_length=20, unique=True)
     description = models.CharField(max_length=20)
@@ -51,16 +57,19 @@ class GroupModel(models.Model):
     def __str__(self):
         return self.name
 
+    # Метод для підрахунку кількості користувачів в групі
     def users_count(self):
         return self.users.all().count()
 
+    # Метод для підрахунку кількості нотаток в групі
     def notes_count(self):
         return NoteModel.objects.filter(group=self).count()
 
+    # Метод для отримання всіх нотаток в групі
     def get_all_notes(self):
         return self.notes.all()
 
-
+# Модель нотатки
 class NoteModel(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
@@ -70,13 +79,16 @@ class NoteModel(models.Model):
     class Meta:
         db_table = 'note'
 
+    # Метод для отримання дати створення нотатки
     def get_creation_date(self):
         return self.created.strftime('%Y-%m-%d %H:%M')
 
+    # Метод для перевірки, чи належить нотатка користувачу
     def belongs_to_user(self, user):
         return self.group == user.group
 
 
+# Модель користувача
 class UserModel(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -114,15 +126,19 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    # Метод для отримання повного імені користувача
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 
+    # Метод для отримання короткого імені користувача
     def get_short_name(self):
         return self.first_name
 
+    # Метод для перевірки, чи є користувач членом вказаної групи
     def is_member_of_group(self, group_name):
         return self.group.name == group_name if self.group else False
 
+    # Метод для відображення дозволів користувача
     def display_user_permissions(self):
         permissions = set(self.user_permissions.all())
         for group in self.groups.all():

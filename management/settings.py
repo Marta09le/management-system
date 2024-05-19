@@ -1,15 +1,15 @@
 import os
 from decouple import config
 from pathlib import Path
-
+# Базова директорія проекту
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# Секретний ключ для Django, зчитується з конфігураційного файлу
 SECRET_KEY = config('DJANGO_SECRET_KEY')
-
+# Режим налагодження (відладка)
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+# Встановлені додатки в проекті
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -18,15 +18,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'apps.user',
-    'apps.accounts',
-    'apps.manager',
-    'rest_framework',
-    'rest_framework.authtoken',
+    'apps.user',  # Користувацький додаток User
+    'apps.accounts',  # Користувацький додаток Accounts
+    'apps.manager',   # Користувацький додаток Manager
+    'rest_framework',    # Django REST Framework для створення API
+    'rest_framework.authtoken',   # Додаток для роботи з токенами аутентифікації
 
     'drf_yasg',
 ]
-
+# Кореневий конфігураційний файл URL
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -38,7 +38,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'management.urls'
-
+# Налаштування шаблонів
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -103,24 +103,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console'],
-#             'level': 'DEBUG',  # Ви можете змінити рівень на INFO або WARNING, залежно від ваших потреб
-#             'propagate': True,
-#         },
-#     },
-# }
 
 AUTH_USER_MODEL = 'accounts.UserModel'
 
