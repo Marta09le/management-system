@@ -19,6 +19,8 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+    some_changes = 0
+
 
 # Якщо скрипт запускається напряму, викликається головна функція main()
 if __name__ == '__main__':
